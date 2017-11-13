@@ -1,1 +1,1 @@
-# Mall Demo	
+# Mall Demo, use Huawei Cloud ECS, DCS, DMS, DDM, RDS Service..
