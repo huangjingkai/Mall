@@ -4,8 +4,8 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-if [ ! -f nginx.zip ];then 
-	echo "The source attachment does not contain the source for the file nginx.zip, download from github.com/huangjingkai. "
+if [ ! -d nginx ];then 
+	echo "The source attachment does not contain the foder: ./nginx/, download from github.com/huangjingkai/Mall please. "
 	exit 1
 fi
 
