@@ -1,0 +1,48 @@
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server ipv6only=on;
+
+	root /usr/share/nginx/demo_html;
+	index index.html index.htm;
+
+	server_name localhost;
+
+	location = / {
+		set $backend 'ngx-backend';
+		try_files $uri /reverse-proxy;
+	}
+
+
+	location = /index.php {
+		set $backend 'ngx-backend';
+		try_files $uri /reverse-proxy;
+	}
+
+	location = /index.html {
+		set $backend 'ngx-backend';
+		set $exptime 2;
+		set $cache_key '$request_uri';
+		try_files $uri @redis-cache;
+	}
+
+	location / {
+		set $backend 'ngx-backend';
+		set $exptime 30;
+		set $cache_key '$request_uri';
+		try_files $uri @redis-cache;
+	}
+
+	location = /reverse-proxy {
+		internal;
+		proxy_set_header Host $host;
+		proxy_set_header Connection "";
+		proxy_http_version 1.1;
+		proxy_pass http://${backend}${request_uri};
+	}
+
+	location @redis-cache {
+		include /etc/nginx/sites-available/redis.conf;
+		content_by_lua_file '/etc/nginx/cached/redis/redis.lua';
+	}
+
+}
