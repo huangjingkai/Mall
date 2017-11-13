@@ -19,7 +19,7 @@ apt-get install -y nginx nginx-extras lua-nginx-redis unzip git redis-tools;
 [ ! -d /usr/share/nginx/demo_html ] && mkdir -p /usr/share/nginx/demo_html;
 chown -R www-data:www-data  /usr/share/nginx/demo_html;
 
-unzip -f nginx.zip
+unzip nginx.zip
 cp -r nginx/* /etc/nginx/
 
 nginx -s reload;
