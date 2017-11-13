@@ -39,7 +39,7 @@ server {
 EOF
 
 mkdir -p /var/www; cd /var/www
-git clone https://github.com/huangjingkai/verydows.git
+git clone https://gitee.com/huangjingkai/verydows.git
 chown -R www-data:www-data verydows
 service php5-fpm restart
 
