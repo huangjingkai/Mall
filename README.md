@@ -14,23 +14,24 @@
 
 ## 1 华为云商城Demo：前置要求
 
-#### 1.1 通用类要求
->* 账号余额：   150元
+#### 1.1 通用类
+>* 账号余额：建议100元 （小于100元，部分服务无法购买）
 >* 可用区：中国华北区1
 >* 付费方式：建议选择按需付费，完成后请及时删除。
-#### 1.2 ECS要求 http://www.huaweicloud.com/product/ecs.html
+>* 其他：默认配置
+#### 1.2 ECS http://www.huaweicloud.com/product/ecs.html
 >* 操作系统：Ubuntu 14.04
 >* 规格：1C1G（最低配置）
 >* 镜像：Ubuntu14.04 64bit
 >* 安全组：要求所有资源在同一安全组内，建议开发全部端口可访问
 >* 数量：2台
-#### 1.3 DCS要求 http://www.huaweicloud.com/product/dcs.html
+#### 1.3 DCS http://www.huaweicloud.com/product/dcs.html
 >* 规格：2G主备实例（最低配置）
-#### 1.4 DMS要求 http://www.huaweicloud.com/product/dms.html
+#### 1.4 DMS http://www.huaweicloud.com/product/dms.html
 >* 队列类型：普通队列
-#### 1.4 DDM要求 http://www.huaweicloud.com/product/ddm.html
+#### 1.4 DDM http://www.huaweicloud.com/product/ddm.html
 >* 规格：4C4G（最低配置）
-#### 1.5 RDS要求 http://www.huaweicloud.com/product/rds.html
+#### 1.5 RDS http://www.huaweicloud.com/product/rds.html
 >* 规格：rds.mysql.c2.medium -- 1 核,2 GB（最低配置）
 >* 数量：2台
 
