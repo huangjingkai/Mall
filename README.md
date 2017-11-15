@@ -36,7 +36,7 @@
 >* 数量：2台
 
 ## 2 华为云商城Demo：商城应用All In One安装
-理解架构图：
+理解架构图：  
 ![1_all_in_one_architecture](Images/1_all_in_one_architecture.png)
 #### 2.1 基础环境安装
 ```
@@ -45,27 +45,27 @@
 #### 
 注意：期间会有MySQL密码的修改，需要记住。
 #### 2.2 商城开源版本安装
-在浏览器中输入您的网址如: http://localhost/，打开后程序将会自动进入 Verydows 的安装程序，之后请按照安装程序的提示完成 Verydows 的安装即可。
+在浏览器中输入您的网址如: http://localhost/ ，打开后程序将会自动进入 商城应用 的安装程序，之后请按照安装程序的提示完成 商城应用 的安装即可。
 >* 前台地址（首次访问）：http://localhost/index.php
 >* 后台地址：http://localhost/index.php?m=backend&c=main&a=index
 
 Attention：此时访问页面，如果页面正常，则恭喜你All In One版本已经安装成功！
 
 ## 3 华为云商城Demo：商城 + DCS
-理解华为云分布式架构图：
+理解华为云分布式架构图：  
 ![2_huaweicloud_architecture](Images/2_huaweicloud_architecture.png)
 
 #### 3.1 申请缓存实例
 
 #### 3.2 动静分离，挂载DCS缓存
-Step1：为了能够正常访问Cached节点，从第1台ECS弹性IP地址，挂载到第2台上。
-Step2：登录Cached节点，基础环境安装
+Step1：为了能够正常访问Cached节点，从第1台ECS弹性IP地址，挂载到第2台上。  
+Step2：登录Cached节点，基础环境安装  
 ```
 # bash Cached/ubuntu14.04/build.sh
 ```
 注意：如有换行符问题，请使用 dos2unix 命令转义。
-Step3：设置DCS的地址，位于：/etc/nginx/sites-available/redis.conf
-Step4：设置后端APP的地址，位于：/etc/nginx/sites-available/upstream.conf
+Step3：设置DCS的地址，位于：/etc/nginx/sites-available/redis.conf  
+Step4：设置后端APP的地址，位于：/etc/nginx/sites-available/upstream.conf  
 
 #### 3.3 重启Nginx服务
 ```
