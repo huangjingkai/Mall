@@ -12,10 +12,6 @@
 
 **声明：欢迎技术交流。我们不夸大、不装逼、做最纯粹的技术分享，感谢支持！！！**
 
-
-----------
-
-
 ## 1 华为云商城Demo：前置要求
 
 #### 1.1 通用类要求
@@ -38,11 +34,8 @@
 >* 规格：rds.mysql.c2.medium -- 1 核,2 GB（最低配置）
 >* 数量：2台
 
-
-----------
-
-
 ## 2 华为云商城Demo：商城应用All In One安装
+理解架构图：
 ![1_all_in_one_architecture](Images/1_all_in_one_architecture.png)
 #### 2.1 基础环境安装
 ```
@@ -55,11 +48,9 @@
 >* 前台地址（首次访问）：http://localhost/index.php
 >* 后台地址：http://localhost/index.php?m=backend&c=main&a=index
 
-
-----------
-
-
 ## 3 华为云商城Demo：商城 + DCS
+理解华为云分布式架构图：
+![2_huaweicloud_architecture](Images/2_huaweicloud_architecture.png)
 #### 3.1 申请缓存实例
 #### 3.2 动静分离，挂载DCS缓存
 Step1：为了能够正常访问Cached节点，从第1台ECS弹性IP地址，挂载到第2台上。
@@ -73,10 +64,6 @@ Step4：设置后端APP的地址，位于：/etc/nginx/sites-available/upstream.
 ```
 # nginx -s reload
 ```
-
-
-----------
-
 
 ## 4 华为云商城Demo：商城 + DDM + RDS
 难点：需要做数据迁移，方可保障服务可用。
