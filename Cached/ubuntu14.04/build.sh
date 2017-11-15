@@ -14,7 +14,7 @@ wget -O sources.list http://mirrors.163.com/.help/sources.list.trusty;
 cp -f sources.list /etc/apt
 
 apt-get update;
-apt-get install -y nginx nginx-extras lua-nginx-redis unzip git redis-tools;
+apt-get install -y nginx nginx-extras lua-nginx-redis unzip git redis-tools dos2unix;
 
 [ ! -d /usr/share/nginx/demo_html ] && mkdir -p /usr/share/nginx/demo_html;
 chown -R www-data:www-data  /usr/share/nginx/demo_html;

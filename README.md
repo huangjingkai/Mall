@@ -12,25 +12,25 @@
 
 **声明：欢迎技术交流。我们不夸大、不装逼、做最纯粹的技术分享，感谢支持！！！**
 
-## 1 华为云商城Demo：前置要求
+## 1 华为云商城Demo：资源要求
 
-#### 1.1 通用类
->* 账号余额：建议100元 （小于100元，部分服务无法购买）
->* 可用区：中国华北区1
->* 付费方式：建议选择按需付费，完成后请及时删除。
->* 其他：默认配置
-#### 1.2 ECS http://www.huaweicloud.com/product/ecs.html
+应当使用华为去优惠券，或者保证账号余额 >100元，否则部分服务可能无法购买。如选择按需付费，完成后请及时删除。
+
+#### 1.1 ECS http://www.huaweicloud.com/product/ecs.html
 >* 操作系统：Ubuntu 14.04
 >* 规格：1C1G（最低配置）
 >* 镜像：Ubuntu14.04 64bit
 >* 安全组：要求所有资源在同一安全组内，建议开发全部端口可访问
 >* 数量：2台
-#### 1.3 DCS http://www.huaweicloud.com/product/dcs.html
+#### 1.2 DCS http://www.huaweicloud.com/product/dcs.html
 >* 规格：2G主备实例（最低配置）
-#### 1.4 DMS http://www.huaweicloud.com/product/dms.html
+>* 数量：1台
+#### 1.3 DMS http://www.huaweicloud.com/product/dms.html
 >* 队列类型：普通队列
+>* 数量：1台
 #### 1.4 DDM http://www.huaweicloud.com/product/ddm.html
 >* 规格：4C4G（最低配置）
+>* 数量：1台
 #### 1.5 RDS http://www.huaweicloud.com/product/rds.html
 >* 规格：rds.mysql.c2.medium -- 1 核,2 GB（最低配置）
 >* 数量：2台
@@ -49,18 +49,24 @@
 >* 前台地址（首次访问）：http://localhost/index.php
 >* 后台地址：http://localhost/index.php?m=backend&c=main&a=index
 
+Attention：此时访问页面，如果页面正常，则恭喜你All In One版本已经安装成功！
+
 ## 3 华为云商城Demo：商城 + DCS
 理解华为云分布式架构图：
 ![2_huaweicloud_architecture](Images/2_huaweicloud_architecture.png)
+
 #### 3.1 申请缓存实例
+
 #### 3.2 动静分离，挂载DCS缓存
 Step1：为了能够正常访问Cached节点，从第1台ECS弹性IP地址，挂载到第2台上。
 Step2：登录Cached节点，基础环境安装
 ```
 # bash Cached/ubuntu14.04/build.sh
 ```
+注意：如有换行符问题，请使用 dos2unix 命令转义。
 Step3：设置DCS的地址，位于：/etc/nginx/sites-available/redis.conf
 Step4：设置后端APP的地址，位于：/etc/nginx/sites-available/upstream.conf
+
 #### 3.3 重启Nginx服务
 ```
 # nginx -s reload
