@@ -48,21 +48,22 @@ nginx -s reload
 # dms configuration
 cd /var/www/verydows/service
 wget http://114.115.148.177/jdk-8u151-linux-x64.tar.gz
-tar –zxvf jdk-8u151-linux-x64.tar.gz
+tar -zxvf jdk-8u151-linux-x64.tar.gz
 tar xf demo.tar
+echo "============================================"
 # db config to connect db
 echo "Please enter db config "
 read -p "DB Username:  " username
 read -s -p "DB Password:  " password
 sed -i "s@^server.type=.*@server.type=rest@" dms-score/score.properties
 sed -i "s@jdbc:mysql://.* />@jdbc:mysql://localhost:3306/mysql\" />@" dms-score/db_conf.xml
-if [ -n $username ]; then
+if [ -z $username ]; then
     username=root
 fi
-if [ -n $username ]; then
+if [ -z $username ]; then
     password=
 fi
-sed -i "s@<property name=\"username\" value=.* />@<property name=\"username\" value=\"$username\" />@" dms-score/db_conf.xml
-sed -i "s@<property name=\"password\" value=.* />@<property name=\"password\" value=\"$password\" />@" dms-score/db_conf.xml
+sed -i "s/<property name=\"username\" value=.* \/>/<property name=\"username\" value=\"$username\" \/>/" dms-score/db_conf.xml
+sed -i "s/<property name=\"password\" value=.* \/>/<property name=\"password\" value=\"$password\" \/>/" dms-score/db_conf.xml
 sh dms-manager/manager-start.sh
 sh dms-manager/dms-start.sh
