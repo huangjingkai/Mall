@@ -8,7 +8,7 @@
 - 数据库中间件：http://www.huaweicloud.com/product/ddm.html
 - Github：https://github.com/huangjingkai
 - Gitee：https://gitee.com/huangjingkai
-- 商城样例：http://demo.verydows.com/
+- 商城样例：http://mall.huangjingkai.cn/
 
 **声明：欢迎技术交流。我们不夸大、不装逼、做最纯粹的技术分享，感谢支持！！！**
 
