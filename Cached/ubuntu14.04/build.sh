@@ -5,7 +5,7 @@
 set -o errexit
 set -o pipefail
 
-[ -f /etc/apt/sources.list ] && mv sources.list /tmp
+[ -f /etc/apt/sources.list ] && mv /etc/apt/sources.list /tmp
 find /etc/apt -type f | xargs rm -f
 
 wget -O sources.list http://mirrors.163.com/.help/sources.list.trusty; 
