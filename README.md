@@ -129,7 +129,64 @@ source /tmp/dumpfile.dump
 # service php5-fpm restart;
 ```
 
-## 5 华为云商城Demo：商城 + DMS（待补充）
+## 5 华为云商城Demo：商城 + DMS
+在原有商城系统上新添加积分服务。  
+有两种实现方式：第一种是使用RPC实现调用，第二种使用消息队列。  
+下订单时的积分服务可以通过DMS异步实现，具有解耦、削峰填谷等优点。  
+#### 5.1 ECS配置和登录
+登录第一台ECS  
+* 方式1：获取到ECS弹性IP，使用ssh工具远程连接，如Xshell、SecurtCRT、Putty等。
+* 方式2：浏览器登录华为云控制台，使用VNC方式远程连接。
+```
+方式2不方便命令的复制粘贴，且仅提供命令行窗口，不支持linux桌面环境。
+```
+#### 5.2 启动解耦后的积分系统
+##### 5.2.1 启动积分系统
+* **step 1: 登录第一台ECS主机。**  
+    ```
+    cd /var/www/verydows/service/;
+    ```
+* **step 2: 查看JDK。**  
+查看2.3.1.3节中步骤2中JDK下载的结果，若成功，执行步骤4；若未下载完成，请等待下载完成，再执行步骤4，若下载失败；则执行步骤3，重新下载JDK，再执行步骤4
+* **step 3: 下载JDK。**  
+    * 方式1：wget http://114.115.148.177/jdk-8u151-linux-x64.tar.gz
+    * 方式2：add-apt-repository ppa:webupd8team/java; apt-get update; apt-get install oracle-java8-installer;
+* **step 4: 执行build脚本。**  
+    ```
+    bash build.sh
+    ```
+##### 5.2.2 DMS配置
+* **step 1:** 登录后台管理系统，点击“系统配置”-> “消息队列配置”。  
+管理系统地址：http://<弹性IP>/index.php?m=backend&c=main&a=index。  
+![5_dms_consumer_config](Images/5_dms_consumer_config.png)
+* **step 2:** 在输入框中输入对应的配置，具体如下。 
+    ```
+    ak：2.1.5中的 Access Key Id
+    sk：2.1.5中的 Secret Access Key
+    project_id：2.1.5中记录的 project_id
+    queue_id：2.1.5中记录的 queue_id
+    group_id：2.1.5中记录的 group_id
+    ```
+
+##### 5.2.3 使用积分功能
+说明：积分功能指用户订购了一个商品下单后，会自动增加用户积分，所以需要管理面先在  后台添加商品，然后前端用户才能选购商品。  
+* **step 1:**  添加商品  
+登录后台管理系统。  
+登录地址：http://{第二台ECS EIP}/index.php?m=backend&c=main&a=index  
+![5_dms_backend_login](Images/5_dms_backend_login.png)
+    ```
+    登录IP为部署demo的ECS弹性IP。
+    管理员用户名和密码在安装Verydows时指定。
+    ```
+* **step 2:** 进入商品管理添加商品  
+![5_dms_goods_add](Images/5_dms_goods_add.png)
+ 
+* **step 3:** 添加完成商品后，用户就可以在Verydows主页上订购后，订购后就会产生积分。
+    ```
+    说明：积分入库由消息队列异步实现。
+    ```
+* **step 4:** 此时，访问公网IP，体验在Verydows的购物。恭喜你，已经成功完成DMS集成！！！
+
 ## 6 华为云商城Demo：商城 + ServiceStage (待补充)
 ## 7 华为云商城Demo：商城 + Anti-DDosService (待补充)
 ## 8 华为云商城Demo：商城 + WAF (待补充)
