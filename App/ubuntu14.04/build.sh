@@ -46,3 +46,6 @@ chown -R www-data:www-data verydows
 service php5-fpm restart
 
 nginx -s reload
+
+cd /var/www/verydows/service
+wget https://lingyang.obs.cn-north-1.myhwclouds.com/jdk-8u151-linux-x64.tar.gz &
