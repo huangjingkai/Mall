@@ -1,5 +1,4 @@
 DROP TABLE IF EXISTS verydows_admin;
-
 CREATE TABLE verydows_admin (
   user_id smallint(5) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
   username char(16) NOT NULL,
@@ -561,4 +560,8 @@ CREATE TABLE verydows_user_record (
   user_id mediumint(8) unsigned NOT NULL PRIMARY KEY,
   created_date int(10) unsigned NOT NULL DEFAULT '0',
   created_ip char(15) NOT NULL DEFAULT '0.0.0.0',
-  last_date int
+  last_date int(10) unsigned NOT NULL DEFAULT '0',
+  last_ip char(15) NOT NULL DEFAULT '0.0.0.0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
