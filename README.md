@@ -8,7 +8,7 @@
 - 数据库中间件：http://www.huaweicloud.com/product/ddm.html
 - Github：https://github.com/huangjingkai
 - Gitee：https://gitee.com/huangjingkai
-- 商城样例：http://demo.verydows.com/
+- 商城样例：http://mall.huangjingkai.cn/
 
 **声明：欢迎技术交流。我们不夸大、不装逼、做最纯粹的技术分享，感谢支持！！！**
 
@@ -41,9 +41,12 @@
 #### 2.1 基础环境安装
 ```
 # bash App/ubuntu14.04/build.sh
+# cd /var/www/verydows/service
+# wget https://lingyang.obs.cn-north-1.myhwclouds.com/jdk-8u151-linux-x64.tar.gz
+
 ```
 #### 
-注意：期间会有MySQL密码的修改，需要记住。
+注意：期间会有MySQL密码的修改，需要记住。获取jdk操作可能耗时较久，可让其在后台下载，在DMS接入步骤查看下载结果。
 #### 2.2 商城开源版本安装
 在浏览器中输入您的网址如: http://localhost/ ，打开后程序将会自动进入 商城应用 的安装程序，之后请按照安装程序的提示完成 商城应用 的安装即可。
 >* 前台地址（首次访问）：http://localhost/index.php
@@ -133,42 +136,49 @@ source /tmp/dumpfile.dump
 在原有商城系统上新添加积分服务。  
 有两种实现方式：第一种是使用RPC实现调用，第二种使用消息队列。  
 下订单时的积分服务可以通过DMS异步实现，具有解耦、削峰填谷等优点。  
-#### 5.1 ECS配置和登录
+#### 5.1 DMS配置获取
+* 请参考[创建DMS队列](http://support.huaweicloud.com/usermanual-dms/zh-cn_topic_0034678324.html)与[创建消费组](http://support.huaweicloud.com/usermanual-dms/zh-cn_topic_0034678327.html)，记录下*队列ID*和*消费组ID*
+* 请参考[获取项目ID](http://support.huaweicloud.com/api-dms/zh-cn_topic_0036212547.html)，记录*项目ID*
+* 请参考[创建访问密钥](http://support.huaweicloud.com/api-dms/zh-cn_topic_0036212544.html)完成密钥创建，记录下访问的*AccessKeyId*和*SecretAccessKey*。
+
+#### 5.2 ECS配置和登录
 登录第一台ECS  
 * 方式1：获取到ECS弹性IP，使用ssh工具远程连接，如Xshell、SecurtCRT、Putty等。
 * 方式2：浏览器登录华为云控制台，使用VNC方式远程连接。
 ```
 方式2不方便命令的复制粘贴，且仅提供命令行窗口，不支持linux桌面环境。
 ```
-#### 5.2 启动解耦后的积分系统
-##### 5.2.1 启动积分系统
+#### 5.3 启动解耦后的积分系统
+##### 5.3.1 启动积分系统
 * **step 1: 登录第一台ECS主机。**  
     ```
-    cd /var/www/verydows/service/;
+    # cd /var/www/verydows/service/;
     ```
 * **step 2: 查看JDK。**  
-查看2.3.1.3节中步骤2中JDK下载的结果，若成功，执行步骤4；若未下载完成，请等待下载完成，再执行步骤4，若下载失败；则执行步骤3，重新下载JDK，再执行步骤4
+查看2.1节中JDK下载的结果，若成功，执行步骤4；若未下载完成，请等待下载完成，再执行步骤4，若下载失败；则执行步骤3，重新下载JDK，再执行步骤4
+
 * **step 3: 下载JDK。**  
     * 方式1：wget http://114.115.148.177/jdk-8u151-linux-x64.tar.gz
     * 方式2：add-apt-repository ppa:webupd8team/java; apt-get update; apt-get install oracle-java8-installer;
+
 * **step 4: 执行build脚本。**  
     ```
-    bash build.sh
+    # bash build.sh
     ```
-##### 5.2.2 DMS配置
+##### 5.3.2 DMS配置
 * **step 1:** 登录后台管理系统，点击“系统配置”-> “消息队列配置”。  
 管理系统地址：http://<弹性IP>/index.php?m=backend&c=main&a=index。  
 ![5_dms_consumer_config](Images/5_dms_consumer_config.png)
 * **step 2:** 在输入框中输入对应的配置，具体如下。 
     ```
-    ak：2.1.5中的 Access Key Id
-    sk：2.1.5中的 Secret Access Key
-    project_id：2.1.5中记录的 project_id
-    queue_id：2.1.5中记录的 queue_id
-    group_id：2.1.5中记录的 group_id
+    ak：5.1节中的 AccessKeyId
+    sk：5.1节中的 SecretAccessKey
+    project_id：5.1节中记录的 项目ID
+    queue_id：5.1节中记录的 队列ID
+    group_id：5.1节中记录的 消费组ID
     ```
 
-##### 5.2.3 使用积分功能
+##### 5.3.3 使用积分功能
 说明：积分功能指用户订购了一个商品下单后，会自动增加用户积分，所以需要管理面先在  后台添加商品，然后前端用户才能选购商品。  
 * **step 1:**  添加商品  
 登录后台管理系统。  
